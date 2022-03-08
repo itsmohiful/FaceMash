@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+    <section class="flex gap-10">
+       {% include 'includes/left-sidebar.html' %}
+
+        <main class="flex-1">
+            <div class="bg-white rounded-lg mb-3">
+                <h3 class="text-base font-semibold mb-2 p-2"><a href=" {% url 'post-detail' post.id %} "> {{ post.title }} </a></h3>
+                <h5 class="text-base font-semibold mb-2 p-2">Author: {{ post.post_author }}</h5>
+                <h6 class="text-base font-semibold mb-2 p-2">Posted At: {{ post.posted_at }}</h6>
+
+                <h3 class="text-base mb-2 p-2"><a class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white" href=" {% url 'edit-post' post.id %} "> Edit </a></h3>
+                <h3 class="text-base mb-2 p-2"><a class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white" href=" {% url 'delete-post' post.id %} "> Delete </a></h3>
+
+                {% if post.post_image %}
+                    <img src="{{ post.post_image.url }}" alt={{ post.title }}>
+                {% endif %}
+
+                <div class="p-4">
+                    <p class="text-sm text-gray-600">{{ post.description }}</p>
+                </div>
+            </div>
+        </main>
+
+         {% include 'includes/right-sidebar.html' %}
+    </section>
+{% endblock %}

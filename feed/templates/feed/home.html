@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+      {% include 'includes/message.html' %}
+
+    <section class="flex gap-10">
+       {% include 'includes/left-sidebar.html' %}
+
+        <main class="flex-1">
+            {% for post in posts %}
+                <div class="bg-white rounded-lg mb-3">
+                    <h3 class="text-base font-semibold mb-2 p-2"><a href=" {% url 'post-detail' post.id %} "> {{ post.title }} </a></h3>
+                    {% if post.post_image %}
+                        <img src="{{ post.post_image.url }}" alt={{ post.title }}>
+                    {% endif %}
+
+                    <div class="p-4">
+                        <p class="text-sm text-gray-600">{{ post.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </main>
+
+         {% include 'includes/right-sidebar.html' %}
+    </section>
+{% endblock %}

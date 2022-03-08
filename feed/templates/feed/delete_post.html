@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    <section class="flex gap-10">
+       {% include 'includes/left-sidebar.html' %}
+
+        <main class="flex-1">
+           <form action="" method="post" class="bg-white shadow-sm p-4 rounded-lg">
+                {% csrf_token %}
+                <h3 class="text-base font-semibold mb-2 p-2">Are you sure to want delete this post- "{{ post.title }}"</h3>
+                <button class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white"><a href=" {% url 'post-detail' post.id %} ">Cancel</a></button>
+                <button type="submit" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Delete</button>
+           </form>
+        </main>
+
+         {% include 'includes/right-sidebar.html' %}
+    </section>
+{% endblock %}

@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-control {
+    width: 100%;
+    border: solid 1px #ddd;
+    padding: 0.4rem 1rem;
+    border-radius: 0.4rem;
+    transition: all .2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border: 1px solid #3A82F6;
+}
+
+.message {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    padding: 0.4rem 1rem;
+    border-radius: 0.4rem;
+    color: #222;
+    transition: all .2s;
+    transform: translate(0);
+}
+
+.message-success {
+     background: lightgreen;
+}
+
+.message-error {
+     background: crimson;
+}
+
+.message-hide {
+ transform: translate(200%);
+}
