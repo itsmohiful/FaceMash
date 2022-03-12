@@ -7,7 +7,7 @@ class Post(models.Model):
     description = models.TextField(blank=True)
     posted_at = models.DateTimeField(auto_now_add=True)
     post_image = models.ImageField(upload_to ="feeds/", null=True, blank=True)
-    post_author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    post_author = models.ForeignKey(User,on_delete=models.CASCADE)
 
     
     def __str__(self) -> str:

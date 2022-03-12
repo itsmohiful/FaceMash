@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+    {% include 'includes/message.html' %}
+    
+ <div class="max-w-md mx-auto bg-white shadow-sm p-4 rounded-lg">
+    <h2 class="text-2xl font-semibold mb-5 text-center">Create a new account</h2>
+
+     <form action="" method="post" class="bg-white shadow-sm p-4 rounded-lg">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="" class="block">{{ field.label_tag }} </label>
+                        {{ field }}
+                    </div>
+
+                    <div>{{ field.errors }}</div>
+                {% endfor %}
+
+                <div class="flex justify-between items-center">
+                      <a href="{% url 'login' %}" class="px-4 py-2 hover:bg-gray-300 inline-flex rounded-lg text-gray-800 text-sm">Already have an account?</a>
+                     <button type="submit" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Register</button>
+                </div>
+               
+           </form>
+        </div>
+{% endblock %}

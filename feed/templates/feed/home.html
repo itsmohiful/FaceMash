@@ -9,14 +9,41 @@
 
         <main class="flex-1">
             {% for post in posts %}
+                <!-- delete modal start-->
+                <div class="modal">
+                    <div class="max-w-lg mx-auto bg-white p-4 rounded-lg mt-3">
+                    <div class="px-3 py-5 text-center">
+                        <h3 class="text-xl mb-2">Are you sure to delete?</h3>
+                        <p class="text-sm text-gray-700">{{ post.title }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <button type="button" class="cancel-btn px-4 py-2 bg-gray-300 inline-flex rounded-lg text-gray-800">Cancel</button>
+                        <button type="button" class="confirm-btn px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white" data-id="{{ post.id }}">Confirm</button>
+                    </div>
+                    </div>
+                </div>
+                <!-- delete modal end-->
+
                 <div class="bg-white rounded-lg mb-3">
-                    <h3 class="text-base font-semibold mb-2 p-2"><a href=" {% url 'post-detail' post.id %} "> {{ post.title }} </a></h3>
+                    <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-27 h-25 rounded" style="width: 8%; height:8%; border-radious: 40%">
+                    <h3 class="text-base font-semibold p-4">Author: {{ post.post_author }}</h3>
+                    <time class="text-gray-600 text-sm block px-4 pb-4">{{ post.posted_at|timesince }} ago</time>
+
                     {% if post.post_image %}
-                        <img src="{{ post.post_image.url }}" alt={{ post.title }}>
+                        <img src="{{ post.post_image.url }}" alt={{ post.title }} class="w-full h-72 object-cover">
                     {% endif %}
 
                     <div class="p-4">
+                        <h3 class="text-base font-semibold mb-2">{{ post.title }}</h3>
                         <p class="text-sm text-gray-600">{{ post.description }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center p-4 border-t border-gray-200">
+                        <a href="{% url 'post-detail' post.id %}" class="hover:bg-gray-200 px-4 py-2 rounded-lg transition">View</a>
+                        <a href="{% url 'edit-post' post.id %}"  class="hover:bg-gray-200 px-4 py-2 rounded-lg transition">Edit</a>
+                        <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
+                        <button type="button"  class="delete-btn hover:bg-gray-200 px-4 py-2 rounded-lg transition">Delete</a>
                     </div>
                 </div>
             {% endfor %}

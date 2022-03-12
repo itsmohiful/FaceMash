@@ -7,7 +7,7 @@ from .models import Post
 
 #home
 def home(request):
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-posted_at')
     return render(request,'feed/home.html',{'posts':posts})
 
 
@@ -46,9 +46,10 @@ def edit_post(request,pk):
     form = PostForm(instance = post)
 
     if request.method == 'POST':
-        form = PostForm(request.POST, instance = post)
+        form = PostForm(request.POST, request.FILES, instance = post)
         if form.is_valid():
             form.save()
+            messages.success(request,'Post updated successfully.')
             return redirect('/')
 
     context = {
@@ -62,11 +63,14 @@ def edit_post(request,pk):
 def delete_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
 
-    if request.method == 'POST':
-        post.delete()
-        return redirect('/')
-    context = {
-        'post' : post
-    }
+    post.delete()
+    # if request.method == 'POST':
+    #     post.delete()
+    #     return redirect('/')
+    # context = {
+    #     'post' : post
+    # }
 
-    return render(request,'feed/delete_post.html',context)
+    # return render(request,'feed/delete_post.html',context)
+
+    messages.success(request,"Post deleted successfully.")

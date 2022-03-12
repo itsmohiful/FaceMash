@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+    --primary: #3A82F6;
+    --success: #1dd1a1;
+    --danger: #ff6b6b;
+    --warning: #feca57;
+    --info: #f368e0;
+}
+
+body {
+    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+}
 
 .form-control {
     width: 100%;
@@ -12,7 +20,7 @@
 
 .form-control:focus {
     outline: none;
-    border: 1px solid #3A82F6;
+    border: 1px solid var(--primary);
 }
 
 .message {
@@ -27,13 +35,39 @@
 }
 
 .message-success {
-     background: lightgreen;
+     background: var(--success);
+      color: #fff;
 }
 
 .message-error {
-     background: crimson;
+     background: var(--danger);
+     color: #fff;
 }
 
 .message-hide {
- transform: translate(200%);
+    transform: translate(200%);
 }
+
+.modal {
+    position: fixed;
+    inset: 0;;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .2s;
+}
+
+.modal > div {
+    margin-top: 4rem;
+}
+
+.modal-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

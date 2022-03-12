@@ -4,9 +4,13 @@
       <a href="/" class="text-2xl font-semibold">FakeBook</a>
  
      <nav>
-         <ul>
-             <li><a href="#" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Sign In</a></li>
-         </ul>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'logout' %}" class="px-4 py-2 bg-blue-500 rounded-lg text-white">Sign Out</a></li>
+        <li><a href="{% url 'profile' %}" class="px-4 py-2 bg-blue-500 rounded-lg text-white"> {{ user.username }} Profile</a></li>
+        {% else %}
+         <li><a href="{% url 'login' %}" class="px-4 py-2 bg-blue-500 rounded-lg text-white">Sign In</a></li>
+         <li><a href="{% url 'register' %}" class="px-4 py-2 bg-blue-800 rounded-lg">Sign Up</a></li>
+      {% endif %}
      </nav>
  
  </div>
