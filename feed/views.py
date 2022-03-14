@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PostForm
@@ -12,6 +13,7 @@ def home(request):
 
 
 #create new post
+@login_required(login_url='login')
 def creat_post(request):
     form = PostForm()
 
@@ -19,7 +21,9 @@ def creat_post(request):
         form = PostForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.post_author = request.user
+            post.save()
             messages.success(request,'Post created successfully.')
             return redirect('/')
     context = {
@@ -41,6 +45,7 @@ def post_detail(request,pk):
 
 
 #edit post 
+login_required(login_url='logoin')
 def edit_post(request,pk):
     post = get_object_or_404(Post, pk=pk)
     form = PostForm(instance = post)
@@ -60,6 +65,7 @@ def edit_post(request,pk):
 
 
 #delete post
+@login_required(login_url='login')
 def delete_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
 

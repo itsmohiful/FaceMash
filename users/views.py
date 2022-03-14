@@ -54,7 +54,7 @@ def logout_view(request):
 
 
 
-#profile view
+#user profile view
 def profile(request):
     return render(request,'users/profile.html')
 
