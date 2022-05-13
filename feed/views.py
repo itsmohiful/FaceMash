@@ -80,3 +80,7 @@ def delete_post(request,pk):
     # return render(request,'feed/delete_post.html',context)
 
     messages.success(request,"Post deleted successfully.")
+
+
+def test(request):
+    pass
