@@ -8,9 +8,6 @@
         <nav class="justify-self-end">
           {% if request.user.is_authenticated %}
             <li class="list-none inline-block"><a href="{% url 'logout' %}" class="px-4 py-2 bg-blue-500 rounded-lg text-white">Sign Out</a></li>
-  
-            <li class="list-none inline-block"><a href="{% url 'profile' %}" class="px-4 py-2 bg-violet-600 rounded-lg text-white"> {{ user.username }} Profile</a></li>
-  
           {% else %}
             <li class="list-none inline-block"><a href="{% url 'login' %}" class="px-4 py-2 bg-blue-500 rounded-lg text-white">Sign In</a></li>
   

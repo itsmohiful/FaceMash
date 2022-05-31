@@ -40,13 +40,20 @@ def post_detail(request,pk):
     comments = post.comment_set.all()
     form = CommentForm()
     if request.method == 'POST':
-        form = CommentForm()
+        form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.comment_autor = request.user
+            comment.comment_author = request.user
             comment.save()
             messages.success(request,'Comment added successfully.')
+
+            context = {
+                'post' : post,
+                'form' : form,
+                'comments': comments,
+            }
+            return render(request,'feed/post_detail_after_comment.html',context)
     
     else:
         form = CommentForm()

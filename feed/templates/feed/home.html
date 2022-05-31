@@ -44,11 +44,11 @@
                     </div>
 
                     <div class="flex justify-between items-center p-4 border-t border-gray-200">
-                        <a href="{% url 'post-detail' post.id %}" class="hover:bg-gray-200 px-4 py-2 rounded-lg transition">View</a>
+                        <a href="{% url 'post-detail' post.id %}" class="bg-green-300 hover:bg-green-200 px-4 py-2 rounded-lg transition">View</a>
                         {% if request.user == post.post_author %}
-                            <a href="{% url 'edit-post' post.id %}"  class="hover:bg-gray-200 px-4 py-2 rounded-lg transition">Edit</a>
+                            <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
                             <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
-                            <button type="button"  class="delete-btn hover:bg-gray-200 px-4 py-2 rounded-lg transition">Delete</a>
+                            <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
                         {% endif %}
                         
                     </div>

@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    {% include 'includes/message.html' %}
+    <section class="flex gap-10">
+
+    {% include 'includes/left-sidebar.html' %}
+
+    <main class="flex-1">
+    <!-- post details -->
+    <a href="{% url 'home' %}" class="block text-blue-400 text-sm font-semibold mb-4 hover:underline">Back to Posts</a>
+
+        {% if post.post_image %}
+        <img src="{{ post.post_image.url }}" alt={{ post.title }} class="w-full h-96 object-cover rounded-lg">
+        {% endif %}
+
+    <div class="bg-white rounded-lg mt-6 p-4">
+        <small class="block text-sm text-gray-600 mb-2">{{ post.posted_at|timesince }} ago</small>
+        <h3 class="text-base font-semibold mb-2">{{ post.title }}</h3>
+        <p class="text-sm text-gray-600">{{ post.description }}</p>
+    </div>
+    <!-- post details end -->
+
+    <!-- comment showing start -->
+    {% if comments %}
+        <hr class="my-6" />
+        <h2 class="font-semibold text-base mb-2">All Comments</h2>
+
+        <ul class="ml-2">
+            {% for comment in comments %}
+            <div class="my-4">
+            <div class="block">
+                <div class="inline-block p-1">
+                <img src="{{ comment.comment_author.profile.profile_image.url }}" alt="profile picture" class="w-8 h-8 rounded-full">
+                </div>
+                <div class="inline-block">
+                <h5>{{ comment.comment_author }}</h5>
+                <small class="inline-flex text-xs text-gray-600">{{ comment.commented_at|timesince }} ago</small>
+                </div>
+            </div>
+                <li class="ml-8">
+                    {{ comment.body }}
+                    {% if request.user == comment.comment_author %}
+                        <div class="mt-3">
+                            <a href="#" class="bg-green-300 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Edit</a>
+                            <a href="#" class="bg-red-400 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Delete</a>
+                        </div>
+                    {% endif %}
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
+
+        <a class="w-48 bg-blue-500 hover:bg-blue-400 py-2 px-2 text-white block rounded-lg" href="{% url 'post-detail' post.id %}">Add a comment</a>
+    {% endif %}
+
+
+        
+
+    </main>
+
+        {% include 'includes/right-sidebar.html' %}
+    </section>
+{% endblock %}
