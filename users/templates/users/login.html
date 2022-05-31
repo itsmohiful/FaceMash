@@ -2,8 +2,8 @@
 
 {% block content %}
     {% include 'includes/message.html' %}
- 
-    <div class="max-w-md mx-auto bg-white shadow-sm p-4 rounded-lg">
+
+    <div class="max-w-sm mx-auto bg-white shadow-sm p-4 rounded-lg">
         <h2 class="text-2xl font-semibold mb-5 text-center">Login to your account</h2>
         <form action="" method="POST" class="">
                 {% csrf_token %}
@@ -12,15 +12,15 @@
                         <input type="text" name="username" id="username" placeholder="User Name" class="form-control" required>
                     </div>
 
-                     <div class="mb-3">
+                    <div class="mb-3">
                         <label for="password" class="block">Password</label>
                         <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
                     </div>
 
                 <div class="flex justify-between items-center">
-                     <a href="{% url 'register' %}" class="px-4 py-2 hover:bg-gray-300 inline-flex rounded-lg text-gray-800 text-sm">Dont' have an account?</a>
-                     <button type="submit" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Login</button>
+                    <a href="{% url 'register' %}" class="px-4 py-2 hover:bg-gray-300 inline-flex rounded-lg text-gray-800 text-sm">Dont' have an account?</a>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Login</button>
                 </div>
-           </form>
+            </form>
     </div>
 {% endblock %}

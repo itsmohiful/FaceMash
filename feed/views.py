@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import PostForm
+from .forms import CommentForm, PostForm
 from .models import Post
 
 
@@ -37,8 +37,24 @@ def creat_post(request):
 #post detail view
 def post_detail(request,pk):
     post = get_object_or_404(Post,pk=pk)
+    comments = post.comment_set.all()
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm()
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.comment_autor = request.user
+            comment.save()
+            messages.success(request,'Comment added successfully.')
+    
+    else:
+        form = CommentForm()
+
     context = {
-        "post" : post
+        'post' : post,
+        'form' : form,
+        'comments': comments,
     }
 
     return render(request,'feed/post_detail.html',context)

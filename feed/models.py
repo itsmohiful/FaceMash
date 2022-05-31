@@ -12,3 +12,14 @@ class Post(models.Model):
     
     def __str__(self) -> str:
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, null = True, blank=True, on_delete=models.CASCADE)
+    comment_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    commented_at = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+
+
+    def __str__(self):
+        return self.body

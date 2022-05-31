@@ -2,12 +2,12 @@
 
 {% block content %}
 
-      {% include 'includes/message.html' %}
+    {% include 'includes/message.html' %}
 
     <section class="flex gap-10">
-       {% include 'includes/left-sidebar.html' %}
+        {% include 'includes/left-sidebar.html' %}
 
-        <main class="flex-1">
+        <main class="flex-1 w-3/5">
             {% for post in posts %}
                 <!-- delete modal start-->
                 <div class="modal">
@@ -25,11 +25,15 @@
                 </div>
                 <!-- delete modal end-->
 
-                <div class="bg-white rounded-lg mb-3">
-                    <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-27 h-25 rounded" style="width: 8%; height:8%; border-radious: 40%">
-                    <h3 class="text-base font-semibold p-4">Author: {{ post.post_author }}</h3>
-                    <time class="text-gray-600 text-sm block px-4 pb-4">{{ post.posted_at|timesince }} ago</time>
+                <div class="bg-white rounded-lg mb-3 w-full">
+                    <div class="w-2/10 inline-block pt-2 mt-2 ml-2 m-1 pb-2">
+                        <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-11 h-11 rounded-full">
+                    </div>
 
+                    <div class="w-8/10 inline-block pl-1 pb-2 -mt-12">
+                        <h4 class="text-base font-semibold">{{ post.post_author }}</h4>
+                        <time class="text-gray-600 text-sm block">{{ post.posted_at|timesince }} ago</time>
+                    </div>
                     {% if post.post_image %}
                         <img src="{{ post.post_image.url }}" alt={{ post.title }} class="w-full h-72 object-cover">
                     {% endif %}
@@ -52,6 +56,6 @@
             {% endfor %}
         </main>
 
-         {% include 'includes/right-sidebar.html' %}
+        {% include 'includes/right-sidebar.html' %}
     </section>
 {% endblock %}
