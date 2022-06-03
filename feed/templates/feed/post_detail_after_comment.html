@@ -42,7 +42,7 @@
                     {{ comment.body }}
                     {% if request.user == comment.comment_author %}
                         <div class="mt-3">
-                            <a href="#" class="bg-green-300 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Edit</a>
+                            <a href="{% url 'edit-comment' comment.id %}" class="bg-green-300 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Edit</a>
                             <a href="#" class="bg-red-400 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Delete</a>
                         </div>
                     {% endif %}

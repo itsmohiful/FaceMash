@@ -41,7 +41,7 @@
     <section class="flex gap-10 w-4/6 mx-auto">
         
         <main class="flex-1 w-3/5">
-            <h5 class="mb-3 text-white">Posts by "{{ view.kwargs.username }}" ( {{ page_obj.paginator.count }} )</h5>
+            <h5 class="mb-3">Posts by "{{ view.kwargs.username }}" ( {{ page_obj.paginator.count }} )</h5>
             {% for post in posts %}
                 <!-- delete modal start-->
                 <div class="modal">

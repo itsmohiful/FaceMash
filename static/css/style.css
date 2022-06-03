@@ -688,6 +688,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: -11rem;
 }
 
+.-mt-32 {
+  margin-top: -8rem;
+}
+
 .block {
   display: block;
 }
@@ -951,6 +955,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
 }
 
 .fill-slate-300 {
