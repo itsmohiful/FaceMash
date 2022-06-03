@@ -1,13 +1,47 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-
     {% include 'includes/message.html' %}
+    {% include 'includes/left-sidebar.html' %}
 
-    <section class="flex gap-10">
-        {% include 'includes/left-sidebar.html' %}
+    <!-- <div class="my-4 w-3/5 mx-auto bg-white shadow-sm p-4 rounded-lg">
+        <h4 class="text-xl font-semibold mb-5 text-center">Personal Information</h4>
+        
+        <div class="">
+            <div class="w-full h-64">
+                <img class="w-full h-full" src=" {{ user.profile.cover_photo.url }} " alt="cover photo">
+            </div>
 
+            <div class="mx-auto flex justify-center w-2/6 p-2 -mt-44">
+                <img src="{{ user.profile.profile_image.url }}" alt="profile picture" class="rounded-full border-4 border-indigo-500/100 block">
+                
+            </div>
+
+            {% if user.profile.bio %}
+                    <div class="my-4 mx-auto w-3/6 text-center border-2 block rounded-lg">
+                        <h5 class="text-base mb-2 p-3">{{ user.profile.bio}}</h5>
+                    </div>
+                {% endif %}
+
+            <h4 class="text-base mb-2">User Name: {{ posts.post_author.user.profile.full_name }}</h4>
+
+            {% if user.profile.full_name %}
+                <h4 class="text-base mb-2">Full Name: {{ user.profile.full_name }}</h4>
+            {% endif %}
+
+            <h4 class="text-base mb-2">Email: {{ user.email }}</h4>
+            {% if user.profile.date_of_birth %}
+                <h4 class="text-base mb-2">Full Name: {{ user.profile.date_of_birth}}</h4>
+            {% endif %}
+            
+            <a href="{% url 'update_profile' %}" class="mx-auto px-4 py-2 bg-blue-400 hover:bg-gray-300 inline-flex rounded-lg text-white text-sm">Edit Profile</a>
+        </div>
+    </div> -->
+
+    <section class="flex gap-10 w-4/6 mx-auto">
+        
         <main class="flex-1 w-3/5">
+            <h5 class="mb-3 text-white">Posts by "{{ view.kwargs.username }}" ( {{ page_obj.paginator.count }} )</h5>
             {% for post in posts %}
                 <!-- delete modal start-->
                 <div class="modal">
@@ -31,9 +65,7 @@
                     </div>
 
                     <div class="w-8/10 inline-block pl-1 pb-2 -mt-12">
-                        <a href=" {% url 'user-posts' post.post_author %} ">
-                            <h4 class="text-base font-semibold">{{ post.post_author }}</h4>
-                        </a>
+                        <h4 class="text-base font-semibold">{{ post.post_author }}</h4>
                         <time class="text-gray-600 text-sm block">{{ post.posted_at|timesince }} ago</time>
                     </div>
                     {% if post.post_image %}
@@ -57,7 +89,6 @@
                 </div>
             {% endfor %}
         </main>
-
-        {% include 'includes/right-sidebar.html' %}
     </section>
+
 {% endblock %}

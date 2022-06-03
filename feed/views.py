@@ -1,15 +1,29 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CommentForm, PostForm
-from .models import Post
+from .models import Comment, Post
 
 
 #home
 def home(request):
     posts = Post.objects.order_by('-posted_at')
-    return render(request,'feed/home.html',{'posts':posts})
+    if request.method == 'POST':
+        search = request.POST.get('search')
+        #results = Post.objects.filter(Q(title__icontains=search))
+        results = Post.objects.filter(Q(title__icontains=search) | Q(description__icontains=search))
+        context =  { 
+            'results': results
+        }
+        return render(request, 'feed/search_result.html', context)
+
+    context = {
+        'posts' : posts,
+    }
+
+    return render(request,'feed/home.html',context)
 
 
 #create new post
@@ -105,5 +119,20 @@ def delete_post(request,pk):
     messages.success(request,"Post deleted successfully.")
 
 
-def test(request):
-    pass
+login_required(login_url='logoin')
+def edit_comment(request,pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    form = CommentForm(instance = comment)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance = comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'comment updated successfully.')
+            return redirect('/')
+
+    context = {
+        "form" : form
+    }
+
+    return render(request,'feed/edit_comment.html',context)

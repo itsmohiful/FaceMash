@@ -35,4 +35,14 @@ class UserUpdateForm(ModelForm):
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_image']
+        fields = ['full_name','date_of_birth','bio','profile_image','cover_photo']
+
+
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class':'form-control'})
+
+        self.fields['bio'].widget.attrs.update({'rows':'4'})
+        self.fields['date_of_birth'].widget.input_type='date'

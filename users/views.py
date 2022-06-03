@@ -1,6 +1,11 @@
+from multiprocessing import context
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.generic import ListView
+from feed.models import Post
 
 from .forms import ProfileUpdateForm, RegisterForm, UserUpdateForm
 from .models import Profile
@@ -55,8 +60,37 @@ def logout_view(request):
 
 
 #user profile view
-def profile(request):
-    return render(request,'users/profile.html')
+# def profile(request,username):
+#     user_id = User.objects.filter(username=username)
+#     posts = Post.objects.filter(post_author__username=user_id)
+#     print('user===',user_id)
+#     #print('post===',posts)
+#     context = {
+#         'posts' : posts,
+#     }
+#     return render(request,'users/profile.html')
+
+
+class UserProfileListView(ListView):
+    model = Post
+    template_name = 'users/profile.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(post_author=user).order_by('-posted_at')
+
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'users/user_posts.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(post_author=user).order_by('-posted_at')
 
 
 #profile update
@@ -69,7 +103,7 @@ def update_profile(request):
             user_form.save()
             profile_form.save()
 
-            messages.success(request,f'your account has been updated')
+            messages.success(request,f'your profile has been updated')
             return redirect('profile')
 
     else:

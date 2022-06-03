@@ -1,5 +1,7 @@
 <aside class="w-1/5">
-    <ul>
-        <li class="list-none inline-block"><a href="{% url 'profile' %}" class="px-4 py-2 bg-violet-600 rounded-lg text-white"> {{ user.username }}</a></li>
-    </ul>
+    {% if request.user.is_authenticated %}
+        <ul>
+            <li class="list-none inline-block"><a href="{% url 'profile' user.username %}" class="px-4 py-2 bg-violet-600 rounded-lg text-white"> {{ user.username }}</a></li>
+        </ul>
+    {% endif %}
 </aside>
