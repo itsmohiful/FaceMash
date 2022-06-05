@@ -503,3 +503,121 @@ Ensure the default browser behavior of the `hidden` attribute.
 .message-hide {
   transform: translate(200%);
 }
+
+
+
+
+.profile-option-bar {
+  position: relative;
+  border-bottom: .5px solid grey;
+}
+
+.profile-option-bar > .top-option-bar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 12px auto;
+}
+
+.profile-option-bar > .top-option-bar > .avatar {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  position: relative;
+}
+
+.profile-option-bar > .top-option-bar > .avatar::after {
+  content: '';
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  background-color: lime;
+  border-radius: 50%;
+  bottom: 5%;
+  left: 75%;
+}
+
+.profile-option-bar > .top-option-bar > .avatar img {
+  border-radius: 50%;
+  width: inherit;
+  border: 1px solid grey;
+}
+
+.profile-option-bar > .top-option-bar > .post-field {
+  height: 45px;
+  width: 55%;
+}
+
+.profile-option-bar > .top-option-bar > .post-field input {
+  height: 100%;
+  width: 100%;
+  padding: 0 5px 0 7px;
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 0;
+  outline: 0;
+  background-color: inherit;
+  color: whitesmoke;
+}
+
+.profile-option-bar > .top-option-bar > .post-field input:hover {
+  outline: 0;
+}
+
+.media-upload > i.fal.fa-images {
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.post-features-bar {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 12px auto;
+}
+
+.post-features-bar > div {
+  color: white;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.post-features-bar > div:not(.room) {
+  border-right: 1px solid grey;
+  padding-right: 25px;
+}
+
+.post-features-bar > .text > i {
+  color: blue;
+  
+}
+
+.post-features-bar .live-video i {
+  color: #ff4572;
+}
+
+.post-features-bar > .room > i {
+  color: #dbbb5d;
+}
+
+.stories {
+    display: flex;
+    position: relative;
+}
+
+.stories > div {
+    height: 105px;
+    width: 65px;
+    border-radius: 7px;
+    margin: 3px 12px;
+}
+
+.stories > div img {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+}
+

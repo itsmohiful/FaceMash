@@ -1,4 +1,4 @@
-<header class="py-3 bg-slate-800 shadow-sm">
+<!-- <header class="py-3 bg-slate-800 shadow-sm">
     <div class="container mx-auto px-6 flex justify-between items-center">
       <div class="w-1/4">
         <a href="/" class="text-white text-2xl font-semibold">FaceMash</a>
@@ -10,7 +10,7 @@
           <label class="relative inline-block">
             <span class="sr-only">Search</span>
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-              <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"><!-- ... --></svg>
+              <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
             </span>
             <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search Content" type="text" name="search"/>
           </label>
@@ -31,4 +31,68 @@
       </div>
     </div>
 
+</header> -->
+
+<header class="shadow-sm mb-4">
+
+<!-- Navbar -->
+  <div class="w3-top sm:px-8 md:px-24 w3-theme-d2 mb-4">
+    <ul class="w3-navbar w3-theme-d2 w3-left-align w3-large">
+    <li class="w3-hide-medium w3-hide-large w3-opennav w3-right">
+      <a class="w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+    </li>
+    <li>
+      <a href="/" class="w3-padding-large w3-theme-d4">
+        <i class="fa fa-home w3-margin-right"></i>FaceMash</a>
+    </li>
+    <li class="w3-hide-small">
+      <a href="#" class="w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i>
+      </a>
+    </li>
+    <li class="w3-hide-small">
+      <a href="#" class="w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i>
+      </a>
+    </li>
+    <li class="w3-hide-small">
+      <a href="#" class="w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i>
+      </a>
+    </li>
+    <li class="w3-hide-small w3-dropdown-hover">
+      <a href="#" class="w3-padding-large w3-hover-white" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span>
+      </a>
+      <div class="w3-dropdown-content w3-white w3-card-4">
+        <a href="#">One new friend request</a>
+        <a href="#">John Doe posted on your wall</a>
+        <a href="#">Jane likes your post</a>
+      </div>
+    </li>
+
+    <div class="flex justify-end ">
+      <nav class="justify-self-end">
+        {% if request.user.is_authenticated %}
+          <li class="w3-hide-small">
+            <a href="{% url 'profile' request.user.username %}" class="w3-padding-large w3-hover-gray" title="My Account"><img src="{{ request.user.profile.profile_image.url }}" class="w3-circle" style="height:35px;width:35px" alt="Avatar">
+            </a>
+          </li> 
+          <li class="list-none inline-block"><a href="{% url 'logout' %}" class="ml-1 px-4 mt-1 bg-green-900 rounded text-white">Sign Out</a></li>
+        {% else %}
+          <li class="list-none inline-block"><a href="{% url 'login' %}" class="ml-1 px-4 mt-0.5 bg-green-800 rounded text-white">Sign In</a></li>
+
+          <li class="list-none inline-block"><a href="{% url 'register' %}" class="ml-1 px-4 mt-0.5 bg-green-900 rounded text-white">Sign Up</a></li>
+        {% endif %}
+      </nav>
+    </div>
+    
+    </ul>
+  </div>
+  
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
+    <ul class="w3-navbar w3-left-align w3-large w3-theme">
+      <li><a class="w3-padding-large" href="#">Link 1</a></li>
+      <li><a class="w3-padding-large" href="#">Link 2</a></li>
+      <li><a class="w3-padding-large" href="#">Link 3</a></li>
+      <li><a class="w3-padding-large" href="#">My Profile</a></li>
+    </ul>
+  </div>
 </header>

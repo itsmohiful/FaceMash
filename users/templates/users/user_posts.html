@@ -1,94 +1,65 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+<section class="flex gap-10 mt-12">
     {% include 'includes/message.html' %}
     {% include 'includes/left-sidebar.html' %}
 
-    <!-- <div class="my-4 w-3/5 mx-auto bg-white shadow-sm p-4 rounded-lg">
-        <h4 class="text-xl font-semibold mb-5 text-center">Personal Information</h4>
-        
+    <div class="flex-1 w-3/5 bg-white shadow-sm p-4 rounded-lg float-right">
         <div class="">
-            <div class="w-full h-64">
-                <img class="w-full h-full" src=" {{ user.profile.cover_photo.url }} " alt="cover photo">
-            </div>
-
-            <div class="mx-auto flex justify-center w-2/6 p-2 -mt-44">
-                <img src="{{ user.profile.profile_image.url }}" alt="profile picture" class="rounded-full border-4 border-indigo-500/100 block">
-                
-            </div>
-
-            {% if user.profile.bio %}
-                    <div class="my-4 mx-auto w-3/6 text-center border-2 block rounded-lg">
-                        <h5 class="text-base mb-2 p-3">{{ user.profile.bio}}</h5>
-                    </div>
-                {% endif %}
-
-            <h4 class="text-base mb-2">User Name: {{ posts.post_author.user.profile.full_name }}</h4>
-
-            {% if user.profile.full_name %}
-                <h4 class="text-base mb-2">Full Name: {{ user.profile.full_name }}</h4>
-            {% endif %}
-
-            <h4 class="text-base mb-2">Email: {{ user.email }}</h4>
-            {% if user.profile.date_of_birth %}
-                <h4 class="text-base mb-2">Full Name: {{ user.profile.date_of_birth}}</h4>
-            {% endif %}
-            
-            <a href="{% url 'update_profile' %}" class="mx-auto px-4 py-2 bg-blue-400 hover:bg-gray-300 inline-flex rounded-lg text-white text-sm">Edit Profile</a>
-        </div>
-    </div> -->
-
-    <section class="flex gap-10 w-4/6 mx-auto">
+            <h4 class="text-xl font-semibold mb-5 text-center mt-2">User posts</h4>
+                {% for post in posts %}
+                        <!-- delete modal start-->
+                        <div class="modal">
+                            <div class="max-w-lg mx-auto bg-white p-4 rounded-lg mt-3">
+                            <div class="px-3 py-5 text-center">
+                                <h3 class="text-xl mb-2">Are you sure to delete?</h3>
+                                <p class="text-sm text-gray-700">{{ post.title }}</p>
+                            </div>
         
-        <main class="flex-1 w-3/5">
-            <h5 class="mb-3">Posts by "{{ view.kwargs.username }}" ( {{ page_obj.paginator.count }} )</h5>
-            {% for post in posts %}
-                <!-- delete modal start-->
-                <div class="modal">
-                    <div class="max-w-lg mx-auto bg-white p-4 rounded-lg mt-3">
-                    <div class="px-3 py-5 text-center">
-                        <h3 class="text-xl mb-2">Are you sure to delete?</h3>
-                        <p class="text-sm text-gray-700">{{ post.title }}</p>
-                    </div>
+                            <div class="flex justify-between items-center">
+                                <button type="button" class="cancel-btn px-4 py-2 bg-gray-300 inline-flex rounded-lg text-gray-800">Cancel</button>
+                                <button type="button" class="confirm-btn px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white" data-id="{{ post.id }}">Confirm</button>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- delete modal end-->
+        
+                        <div class="bg-white rounded-lg mb-3 w-full mt-4">
+                            <div class="w-2/10 inline-block pt-2 mt-2 ml-2 m-1 pb-2">
+                                <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-11 h-11 rounded-full">
+                            </div>
+        
+                            <div class="w-8/10 inline-block pl-1 pb-2 -mt-12">
+                                <h4 class="text-base font-semibold">{{ post.post_author }}</h4>
+                                <time class="text-gray-600 text-sm block">{{ post.posted_at|timesince }} ago</time>
+                            </div>
+                            {% if post.post_image %}
+                                <img src="{{ post.post_image.url }}" alt={{ post.title }} class="w-full h-72 object-cover">
+                            {% endif %}
+        
+                            <div class="p-4">
+                                <h3 class="text-base font-semibold mb-2">{{ post.title }}</h3>
+                                <p class="text-sm text-gray-600">{{ post.description }}</p>
+                            </div>
+        
+                            <div class="flex justify-between items-center p-4 border-t border-gray-200">
+                                <a href="{% url 'post-detail' post.id %}" class="bg-green-300 hover:bg-green-200 px-4 py-2 rounded-lg transition">View</a>
+                                {% if request.user == post.post_author %}
+                                    <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
+                                    <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
+                                    <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
 
-                    <div class="flex justify-between items-center">
-                        <button type="button" class="cancel-btn px-4 py-2 bg-gray-300 inline-flex rounded-lg text-gray-800">Cancel</button>
-                        <button type="button" class="confirm-btn px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white" data-id="{{ post.id }}">Confirm</button>
-                    </div>
-                    </div>
-                </div>
-                <!-- delete modal end-->
-
-                <div class="bg-white rounded-lg mb-3 w-full">
-                    <div class="w-2/10 inline-block pt-2 mt-2 ml-2 m-1 pb-2">
-                        <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-11 h-11 rounded-full">
-                    </div>
-
-                    <div class="w-8/10 inline-block pl-1 pb-2 -mt-12">
-                        <h4 class="text-base font-semibold">{{ post.post_author }}</h4>
-                        <time class="text-gray-600 text-sm block">{{ post.posted_at|timesince }} ago</time>
-                    </div>
-                    {% if post.post_image %}
-                        <img src="{{ post.post_image.url }}" alt={{ post.title }} class="w-full h-72 object-cover">
-                    {% endif %}
-
-                    <div class="p-4">
-                        <h3 class="text-base font-semibold mb-2">{{ post.title }}</h3>
-                        <p class="text-sm text-gray-600">{{ post.description }}</p>
-                    </div>
-
-                    <div class="flex justify-between items-center p-4 border-t border-gray-200">
-                        <a href="{% url 'post-detail' post.id %}" class="bg-green-300 hover:bg-green-200 px-4 py-2 rounded-lg transition">View</a>
-                        {% if request.user == post.post_author %}
-                            <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
-                            <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
-                            <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
-                        {% endif %}
-                        
-                    </div>
-                </div>
-            {% endfor %}
-        </main>
-    </section>
+        
+        
+    </div>
+    {% include 'includes/right-sidebar.html' %}
+</section>
 
 {% endblock %}

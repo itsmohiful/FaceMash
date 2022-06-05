@@ -1,11 +1,12 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+<section class="flex gap-10 mt-12">
     {% include 'includes/message.html' %}
     {% include 'includes/left-sidebar.html' %}
 
-    <div class="my-4 w-3/5 mx-auto bg-white shadow-sm p-4 rounded-lg">
-        <h4 class="text-xl font-semibold mb-5 text-center">Personal Information</h4>
+    <div class="flex-1 w-3/5 bg-white shadow-sm p-4 rounded-lg float-right">
+        <h4 class="text-xl font-semibold mb-5 text-center">User Information</h4>
         <div class="">
             <div class="w-full h-64">
                 <img class="w-full h-full" src=" {{ user.profile.cover_photo.url }} " alt="cover photo">
@@ -30,17 +31,24 @@
 
             <h4 class="text-base mb-2">Email: {{ user.email }}</h4>
             {% if user.profile.date_of_birth %}
-                <h4 class="text-base mb-2">Full Name: {{ user.profile.date_of_birth}}</h4>
+                <h4 class="text-base mb-2">Date Of Birth: {{ user.profile.date_of_birth}}</h4>
             {% endif %}
             
-            <a href="{% url 'update_profile' %}" class="mx-auto px-4 py-2 bg-blue-400 hover:bg-gray-300 inline-flex rounded-lg text-white text-sm">Edit Profile</a>
+            <a href="{% url 'update_profile' %}" class="justify-center px-4 py-2 bg-blue-400 hover:bg-gray-300 inline-flex  rounded-lg text-white text-sm">Edit your Profile</a>
         </div>
+
+        
+        
     </div>
+    {% include 'includes/right-sidebar.html' %}
+</section>
 
-    <section class="flex gap-10 w-4/6 mx-auto">
 
-        <main class="flex-1 w-3/5">
-            {% for post in posts %}
+<!-- post section -->
+<section class="w-3/5 mx-auto flex gap-10 mt-1 px-8">
+    <div class="">
+    <h4 class="text-xl font-semibold mb-5 text-center mt-2">User posts</h4>
+        {% for post in posts %}
                 <!-- delete modal start-->
                 <div class="modal">
                     <div class="max-w-lg mx-auto bg-white p-4 rounded-lg mt-3">
@@ -57,7 +65,7 @@
                 </div>
                 <!-- delete modal end-->
 
-                <div class="bg-white rounded-lg mb-3 w-full">
+                <div class="bg-white rounded-lg mb-3 w-full mt-4">
                     <div class="w-2/10 inline-block pt-2 mt-2 ml-2 m-1 pb-2">
                         <img src="{{ post.post_author.profile.profile_image.url }}" alt="profile picture" class="w-11 h-11 rounded-full">
                     </div>
@@ -86,7 +94,8 @@
                     </div>
                 </div>
             {% endfor %}
-        </main>
-    </section>
+    </div>
+</section>
+    
 
 {% endblock %}

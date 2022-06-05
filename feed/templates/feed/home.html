@@ -1,13 +1,53 @@
 {% extends 'base.html' %} 
 
+{% load static %}
 {% block content %}
 
     {% include 'includes/message.html' %}
 
-    <section class="flex gap-10">
+    <section class="flex gap-10 mt-12">
         {% include 'includes/left-sidebar.html' %}
 
         <main class="flex-1 w-3/5">
+            <div class="bg-white rounded-lg">
+                <div class="profile-option-bar bg-white">
+                    <div class="top-option-bar">
+                    {% if request.user.is_authenticated %}
+                        <div class="avatar mt-1">
+                            <img src="{{ request.user.profile.profile_image.url }}" alt="profile_pic" />
+                        </div>
+                    {% else %}
+                        <div class="avatar mt-1">
+                            <img src="{% static 'images/default_profile.jpg' %}" alt="profile_pic" />
+                        </div>
+                    {% endif %}
+                    
+                    <div class="post-field">
+                        <input type="text" name="post-feed" placeholder="Write something here..." />
+                    </div>
+                    <div class="media-upload text-slate-700">
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- status icons -->
+                
+                <div class="post-features-bar bg-white">
+                    <div class="text text-green-800">
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    <span class="text text-slate-700">Photo/video</span>
+                    </div>
+                    <div class="live-video text-red-500">
+                        <i class="fa fa-video-camera" aria-hidden="true"></i>
+                    <span class="text text-slate-700">Live Video</span>
+                    </div>
+                    <div class="room text-yellow-400">
+                        <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    <span class="text text-slate-700">Feeling</span>
+                    </div>
+                </div>
+            </div>
             {% for post in posts %}
                 <!-- delete modal start-->
                 <div class="modal">
