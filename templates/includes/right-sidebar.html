@@ -6,24 +6,29 @@
         <div class="w3-row">
             <div class="w3-col">
                 <div class="w3-col">
+                    <ul class="mb-2">
+                        <li><a href="{% url 'creat-post' %}" class="text-green-400 px-4 py-2 w-full bg-gray-900 hover:bg-gray-700 transition inline-block">Add New Post</a></li>
+                    </ul>
+                    <!-- search bar start -->
                     <div class="w3-card-2 w3-round w3-white w3-center py-4">
                         <div class="">
                             <form action="" method="post">
-                              {% csrf_token %}
-                              <label class="relative inline-block">
+                                {% csrf_token %}
+                                <label class="relative inline-block">
                                 <span class="sr-only">Search</span>
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                                  <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
+                                    <svg class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20"></svg>
                                 </span>
                                 <input class="placeholder:italic placeholder:text-slate-800 block bg-gray-300 w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search Content" type="text" name="search"/>
-                              </label>
-                              <button type="submit" class="p-2  mt-2 border-2 rounded-md text-gray-900">Search</button>
+                                </label>
+                                <button type="submit" class="p-2  mt-2 border-2 rounded-md text-gray-900">Search</button>
                             </form>
-                          </div>
+                        </div>
                     </div>
                     <br>
+                    <!-- search bar end -->
 
-
+                    <!-- upcomming event start -->
                     <div class="w3-card-2 w3-round w3-white w3-center py-4">
                         <div class="w3-container">
                             <p>Upcoming Events:</p>
@@ -34,7 +39,10 @@
                         </div>
                     </div>
                     <br>
+                    <!-- upcomming event end -->
                     
+
+                    <!-- frind requeststart -->
                     <div class="w3-card-2 w3-round w3-white w3-center">
                         <div class="w3-container">
                             <p class="pt-2">Friend Request</p>
@@ -51,6 +59,7 @@
                         </div>
                     </div>
                     <br>
+                    <!-- friend request end-->
                     
                     <!-- <div class="w3-card-2 w3-round w3-white w3-padding-16 w3-center">
                         <p>ADS</p>

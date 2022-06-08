@@ -16,13 +16,13 @@
     <title class="text-white">FaceMash</title>
 </head>
 <body class="bg-slate-300 min-h-screen">
-        {% include 'includes/header.html' %}
+    {% include 'includes/header.html' %}
     
     <div class="container mx-auto px-6 py-3">
             {% block content %}
             {% endblock %}
     </div>
-    
+    {% include "includes/footer.html" %}
 
     <script src=" {% static './js/main.js' %} "></script>
 </body>
