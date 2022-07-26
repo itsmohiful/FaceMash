@@ -1,11 +1,11 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-    <section class="flex gap-10">
-       {% include 'includes/left-sidebar.html' %}
+    <section class="flex gap-10 mt-12">
+    {% include 'includes/left-sidebar.html' %}
 
         <main class="flex-1">
-           <form action="" method="post" enctype="multipart/form-data" class="bg-white shadow-sm p-4 rounded-lg">
+        <form action="" method="post" enctype="multipart/form-data" class="bg-white shadow-sm p-4 rounded-lg">
                 {% csrf_token %}
                 {% for field in form %}
                     <div class="mb-3">
@@ -13,10 +13,10 @@
                         {{ field }}
                     </div>
                 {% endfor %}
-                <button type="submit" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Post</button>
-           </form>
+                <button type="submit" class="px-4 py-2 hover:bg-blue-500 inline-flex rounded-lg">Update</button>
+        </form>
         </main>
 
-         {% include 'includes/right-sidebar.html' %}
+        {% include 'includes/right-sidebar.html' %}
     </section>
 {% endblock %}

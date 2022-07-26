@@ -68,6 +68,16 @@ body {
     visibility: visible;
 }
 
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    background-image: none;
+}
+
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

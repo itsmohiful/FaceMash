@@ -90,7 +90,7 @@
                         {% if request.user == post.post_author %}
                             <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
                             <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
-                            <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
+                            <a href="{% url 'delete-post' post.id %}" class="bg-red-400 hover:bg-red-300 text-white px-4 py-2 rounded-lg transition">Delete</a>
                         {% endif %}
                         
                     </div>

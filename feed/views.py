@@ -11,6 +11,7 @@ from .models import Comment, Post
 #home
 def home(request):
     posts = Post.objects.order_by('-posted_at')
+    
     paginator = (Paginator(posts,3))
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
@@ -111,17 +112,20 @@ def edit_post(request,pk):
 def delete_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
 
-    post.delete()
-    # if request.method == 'POST':
-    #     post.delete()
-    #     return redirect('/')
-    # context = {
-    #     'post' : post
-    # }
+    # post.delete()
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request,"Post deleted successfully.")
+        return redirect('/')
 
-    # return render(request,'feed/delete_post.html',context)
+    context = {
+        'post' : post
+    }
 
-    messages.success(request,"Post deleted successfully.")
+    
+    return render(request,'feed/delete_post.html',context)
+
+    
 
 
 login_required(login_url='logoin')
