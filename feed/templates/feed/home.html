@@ -86,14 +86,75 @@
                     </div>
 
                     <div class="flex justify-between items-center p-4 border-t border-gray-200">
-                        <a href="{% url 'post-detail' post.id %}" class="bg-green-300 hover:bg-green-200 px-4 py-2 rounded-lg transition">View</a>
-                        {% if request.user == post.post_author %}
-                            <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
-                            <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
-                            <a href="{% url 'delete-post' post.id %}" class="bg-red-400 hover:bg-red-300 text-white px-4 py-2 rounded-lg transition">Delete</a>
-                        {% endif %}
+                        <div class="like-div">
+                            <a href="{% url 'home' %}" class="bg-blue-400 hover:bg-blue-300 px-4 py-2 mr-2 rounded-lg text-white transition">Like <sup class="p-1 rounded-full text-green-700 bg-gray-100"> {{post.id}} </sup> </a>
+                            <a href="{% url 'home' %}" class="bg-red-400 hover:bg-red-300 px-4 py-2 rounded-lg text-white transition">Dislike</a>
+                        </div>
+                        <div class="button-div">
+                            <a href="{% url 'post-detail' post.id %}" class="bg-green-300 hover:bg-green-200 px-4 py-2 rounded-lg transition">View</a>
+                            {% if request.user == post.post_author %}
+                                <a href="{% url 'edit-post' post.id %}"  class="bg-violet-600 hover:bg-violet-400 text-white px-4 py-2 rounded-lg transition">Edit</a>
+                                <!-- <a href="{% url 'delete-post' post.id %}" class="delete-btn">Delete</a> -->
+                                <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
+                            {% endif %}
+                        </div>
+                        
                         
                     </div>
+
+                    
+                    <!-- comment showing start -->
+                    {% if post.comment_set.all %}
+                        <div class="bg-white pb-4">
+                        <hr class="my-6" />
+                        <h2 class="font-semibold text-cyan-500 mb-2 ml-2">All Comments</h2>
+
+                        <ul class="ml-4">
+                            {% for comment in post.comment_set.all %}
+
+                            <!-- delete modal start-->
+                            <div class="modal">
+                            <div class="max-w-lg mx-auto bg-white p-4 rounded-lg mt-3">
+                            <div class="px-3 py-5 text-center">
+                                <h3 class="text-xl mb-2 text-red-400">Are you sure to delete?</h3>
+                                <p class="text-sm text-blue-500">{{ comment.body}}</p>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <button type="button" class="cancel-btn px-4 py-2 bg-gray-300 inline-flex rounded-lg text-gray-800">Cancel</button>
+                                <button type="button" class="px-4 py-2 bg-blue-500 inline-flex rounded-lg text-white">Confirm</button>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- delete modal end-->
+
+                            <div class="my-6">
+                                <div class="block">
+                                <div class="inline-block p-1">
+                                    <img src="{{ comment.comment_author.profile.profile_image.url }}" alt="profile picture" class="w-8 h-8 rounded-full">
+                                </div>
+                                <div class="inline-block">
+                                    <h5 class="text-sm">{{ comment.comment_author }}</h5>
+                                    <small class="inline-flex text-xs text-gray-600">{{ comment.commented_at|timesince }} ago</small>
+                                </div>
+                                </div>
+                                <li class="ml-8 text-sm">
+                                    {{ comment.body }}
+                                    {% if request.user == comment.comment_author %}
+                                        <div class="mt-3">
+                                            <a href="{% url 'edit-comment' comment.id %}" class="bg-green-300 px-4 py-2 inline-block text-xs cursor-pointer rounded-lg">Edit</a>
+                                            <button type="button"  class="delete-btn bg-red-500 hover:bg-red-300 px-4 py-2 rounded-lg transition">Delete</a>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            </div>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    {% endif %}
+
+                    <!-- comment showing end -->
+
                 </div>
             {% endfor %}
 

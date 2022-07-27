@@ -32,6 +32,7 @@ function modalClose() {
    modal.classList.remove("modal-open");
 }
 
+//delete post
 async function deletePost() {
   try {
       await fetch(`/post/${this.dataset.id}/delete`);
@@ -41,6 +42,7 @@ async function deletePost() {
     console.log(err);
   }
 }
+
 
 
 confirmButton.addEventListener("click", deletePost);

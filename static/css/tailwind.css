@@ -68,14 +68,34 @@ body {
     visibility: visible;
 }
 
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+button[type='submit'] {
     background-image: none;
+    background: #548eec;
+}
+
+button[type='button'] {
+    background-image: none;
+    background: #43a770;
 }
 
 
+button[type='reset'] {
+    background-image: none;
+    background: #62b3c2;
+}
+
+
+.delete-btn{
+    background: #eb6767 !important;
+}
+
+.cancel-btn{
+    background: #73e6a7 !important;
+}
+
+.confirm-btn{
+    background: #eb6767 !important;
+}
 
 
 @tailwind base;

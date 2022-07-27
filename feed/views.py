@@ -11,7 +11,6 @@ from .models import Comment, Post
 #home
 def home(request):
     posts = Post.objects.order_by('-posted_at')
-    
     paginator = (Paginator(posts,3))
     page_number = request.GET.get('page')
     posts = paginator.get_page(page_number)
@@ -134,7 +133,7 @@ def edit_comment(request,pk):
     form = CommentForm(instance = comment)
 
     if request.method == 'POST':
-        form = PostForm(request.POST, instance = comment)
+        form = CommentForm(request.POST, instance = comment)
         if form.is_valid():
             form.save()
             messages.success(request,'comment updated successfully.')
@@ -145,3 +144,17 @@ def edit_comment(request,pk):
     }
 
     return render(request,'feed/edit_comment.html',context)
+
+
+
+login_required(login_url='logoin')
+def delete_comment(request,pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request,'comment deleted successfully.')
+        return redirect('/')
+
+
+    return render(request,'feed/edit_comment.html')
